@@ -14,4 +14,5 @@ public interface BancoServiceIF extends Remote {
     Conta pesquisarConta(String nConta) throws RemoteException;
     void excluirConta(String nConta) throws RemoteException;
     List<Conta> listarContas() throws RemoteException;
+    
 }

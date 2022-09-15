@@ -56,7 +56,7 @@ public class AppClienteBanco {
                     break;
                 }
                 case 6: {
-                     System.out.println(banco.listarContas());
+                    System.out.println(banco.listarContas());
                     break;
                 }
             }

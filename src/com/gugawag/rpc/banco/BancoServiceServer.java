@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import com.gugawag.rpc.banco.model.Conta;
 
@@ -39,7 +38,7 @@ public class BancoServiceServer extends UnicastRemoteObject implements BancoServ
 
     @Override
     public Conta criarConta(String nConta, Double saldo) throws RemoteException {
-        Conta conta = new Conta(nConta, saldo);
+        var conta = new Conta(nConta, saldo);
         this.contas.add(conta);
 
         return this.contas.get(this.contas.size() - 1);
@@ -48,15 +47,14 @@ public class BancoServiceServer extends UnicastRemoteObject implements BancoServ
     @Override
     public Conta pesquisarConta(String nConta) throws RemoteException {
         return this.contas.stream()
-                          .filter(conta -> nConta.equals(conta.getConta()))
+                          .filter(conta -> nConta.equalsIgnoreCase(conta.getConta()))
                           .findAny()
                           .orElse(null);
     }
 
     @Override
     public void excluirConta(String nConta) throws RemoteException {
-        Predicate<Conta> contaDelete = conta -> conta.getConta().equals(nConta);
-        this.contas.removeIf(contaDelete);
+        this.contas.removeIf(conta -> conta.getConta().equalsIgnoreCase(nConta));
     }
 
     @Override
